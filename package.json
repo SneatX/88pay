@@ -1,0 +1,21 @@
+{
+  "name": "88pay",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon app.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "description": "",
+  "dependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.5",
+    "express": "^4.21.2",
+    "express-validator": "^7.2.1",
+    "mysql2": "^3.12.0",
+    "nodemon": "^3.1.9"
+  }
+}
