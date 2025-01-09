@@ -27,4 +27,15 @@ export default class ProductController{
         let createdProduct = await productModel.create(product);
         res.status(201).json(createdProduct);
     }
+
+    static async getProductWithUserData(req: Request, res: Response): Promise<void>{
+        const errors = validationResult(req);
+        if (!errors.isEmpty()){
+            res.status(400).json({ errors: errors.array() });
+            return
+        } 
+        let id = req.params.id;
+        let product = await productModel.getProductWithUserData(id);
+        res.status(200).json(product);
+    }
 }
