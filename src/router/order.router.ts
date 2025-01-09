@@ -9,5 +9,6 @@ router.get('/:id', emptyBodyValidator, OrderController.getOne)
 router.get('/:id/product', emptyBodyValidator, OrderController.getOrderWithProductAndUserData)
 router.get('/user/:id', emptyBodyValidator, OrderController.getOrdersOfUser)
 router.post('/',createOrderValidator,  OrderController.createOrder)
+router.delete('/:id', emptyBodyValidator, OrderController.deleteOrder)
 
 export default router

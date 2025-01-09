@@ -85,4 +85,14 @@ export default class OrderModel {
             throw new Error('Failed to fetch Orders of user from database');
         }
     }
+
+    async deleteOrder(id: string): Promise<Order> {
+        try {
+            const [deletedOrder] = await database.query<Order & RowDataPacket[]>('DELETE FROM orders WHERE id = ?', [id]);
+            return deletedOrder;
+        } catch (error) {
+            console.error('Error deleting order:', error);
+            throw new Error('Failed to delete order from database');
+        }
+    }
 }
