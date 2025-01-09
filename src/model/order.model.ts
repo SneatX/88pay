@@ -32,4 +32,33 @@ export default class OrderModel {
             throw new Error('Failed to create orders in database');
         }
     }
+
+    async getOrderWithProductAndUserData(id: string): Promise<Order> {
+        try {
+            const [Order] = await database.query<Order & RowDataPacket[]>(`
+                SELECT 
+                    Orders.id AS orderId,
+                    Orders.quantity,
+                    Orders.createdAt AS orderDate,
+                    Users.id AS userId,
+                    Users.name AS userName,
+                    Users.email AS userEmail,
+                    Products.id AS productId,
+                    Products.name AS productName,
+                    Products.price
+                FROM 
+                    Orders
+                INNER JOIN 
+                    Users ON Orders.userId = Users.id
+                INNER JOIN 
+                    Products ON Orders.productId = Products.id
+                WHERE 
+                    Orders.id = ?;
+            `, [id]);
+            return Order;
+        } catch (error) {
+            console.error('Error fetching Order with product and user data:', error);
+            throw new Error('Failed to fetch Order with product and user data from database');
+        }
+    }
 }

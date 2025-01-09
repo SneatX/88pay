@@ -6,6 +6,7 @@ const router = Router()
 
 router.get('/', emptyBodyValidator, OrderController.getAll)
 router.get('/:id', emptyBodyValidator, OrderController.getOne)
+router.get('/:id/product', emptyBodyValidator, OrderController.getOrderWithProductAndUserData)
 router.post('/',createOrderValidator,  OrderController.createOrder)
 
 export default router
