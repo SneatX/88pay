@@ -50,4 +50,15 @@ export default class OrderController {
         let order = await orderController.getOrderWithProductAndUserData(id);
         res.status(200).json(order);
     }
+
+    static async getOrdersOfUser(req: Request, res: Response): Promise<void> {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            res.status(400).json({ errors: errors.array() });
+            return
+        }
+        let id = req.params.id;
+        let orders = await orderController.getOrdersOfUser(id);
+        res.status(200).json(orders);
+    }
 }
