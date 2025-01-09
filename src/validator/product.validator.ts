@@ -1,11 +1,15 @@
 import { body} from 'express-validator';
 
+const emptyBodyValidator = [
+    body().custom((value, { req }) => {
+        if (Object.keys(req.body).length > 0) {
+            throw new Error('the body of the request should be empty');
+        }
+        return true;
+    }),
+]
+
 const createProductValidator = [
-
-    body("id")
-        .exists().withMessage("id is required in the body")
-        .isString().withMessage("id must be a string"),
-
     body("name")
         .exists().withMessage("name is required")
         .isString().withMessage("name must be a string"),
@@ -17,8 +21,6 @@ const createProductValidator = [
     body("createdBy")
         .exists().withMessage("createdBy is required")
         .isString().withMessage("createdBy must be a string")
-        
-    
 ]
 
-export {createProductValidator}
+export { emptyBodyValidator,createProductValidator}

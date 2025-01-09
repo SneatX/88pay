@@ -1,11 +1,11 @@
 import { Router } from 'express'
 import OrderController from '../controller/order.controller'
-import { createProductValidator  } from '../validator/order.validator'
+import { emptyBodyValidator, createOrderValidator  } from '../validator/order.validator'
 
 const router = Router()
 
-router.get('/', OrderController.getAll)
-router.get('/:id', OrderController.getOne)
-router.post('/',createProductValidator,  OrderController.createProduct)
+router.get('/', emptyBodyValidator, OrderController.getAll)
+router.get('/:id', emptyBodyValidator, OrderController.getOne)
+router.post('/',createOrderValidator,  OrderController.createOrder)
 
 export default router

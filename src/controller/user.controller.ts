@@ -25,7 +25,6 @@ export default class UserController{
         } 
 
         let user: User = req.body;
-        user.createdAt = new Date().toISOString().slice(0, 19).replace('T', ' ');
         let createdUser = await usersModel.create(user);
         res.status(201).json(createdUser);
     }
