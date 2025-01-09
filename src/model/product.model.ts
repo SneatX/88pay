@@ -52,8 +52,28 @@ export default class ProductModel {
             `, [id]);
             return Product;
         } catch (error) {
-            console.error('Error fetching Product with user data:', error);
+            //console.error('Error fetching Product with user data:', error);
             throw new Error('Failed to fetch Product with user data from database');
+        }
+    }
+
+    async getProductsWithFilter(filter: string): Promise<Product[]> {
+        try {
+            const [Products] = await database.query<Product[] & RowDataPacket[]>(`
+                SELECT 
+                    id AS productId,
+                    name AS productName,
+                    price
+                FROM 
+                    Products
+                ORDER BY 
+                    ${filter} ASC;
+
+            `);
+            return Products;
+        } catch (error) {
+            console.error('Error fetching Products with filter:', error);
+            throw new Error('Failed to fetch Products with filter from database');
         }
     }
 }

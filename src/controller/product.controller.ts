@@ -38,4 +38,19 @@ export default class ProductController{
         let product = await productModel.getProductWithUserData(id);
         res.status(200).json(product);
     }
+
+    static async getProductsWithFilter(req: Request, res: Response): Promise<void>{
+        const errors = validationResult(req);
+        if (!errors.isEmpty()){
+            res.status(400).json({ errors: errors.array() });
+            return
+        } 
+        let filter: string = req.params.filter;
+        try{
+            let products = await productModel.getProductsWithFilter(filter);
+            res.status(200).json(products);
+        } catch (error) {
+            res.status(500).json({ message: 'Error fetching Products with filter' });
+        }
+    }
 }
