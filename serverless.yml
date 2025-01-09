@@ -1,0 +1,18 @@
+service: express-app
+
+provider:
+  name: aws
+  runtime: nodejs22.x
+  region: us-east-1
+
+plugins:
+  - serverless-offline
+
+functions:
+  app:
+    handler: src/serverlessConfig.handler
+    events:
+      - http:
+          path: '/{proxy+}'
+          method: any
+      
